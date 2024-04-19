@@ -102,7 +102,7 @@ const Login = () => {
                         <button
                             id="submitBtn"
                             type="submit"
-                            disabled={submitBtnText === "Magic Link Sent to your Email!"}
+                            disabled={submitBtnText === "Magic Link Sent to your Email!" || !projectID || !redirectURL || !scope}
                             class="bg-green-600 text-white py-3 px-6 rounded -md cursor-pointer transition-colors duration-300 hover:bg-green-500"
                         >
                             {submitBtnText}
