@@ -60,7 +60,7 @@ const Login = () => {
                         return response.headers.get("x-auth")
                     }).then((data) => {
                         const authToken = data
-                        cookies.setCookie("authToken", authToken);
+                        setCookie("authToken", authToken);
                         if (!authToken) {
                             return alert("Login credentials are invalid")
                         }
