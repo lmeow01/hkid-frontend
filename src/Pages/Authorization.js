@@ -6,13 +6,15 @@ import { useCookies } from 'react-cookie';
 
 const Authorization = () => {
     const location = useLocation();
-    const queryParameters = new URLSearchParams(window.location.search)
-    const projectID = queryParameters.get("projectID")
-    const redirectURL = queryParameters.get("redirectURL")
-    const scope = queryParameters.get("scope")
-    const authToken = queryParameters.get("token")
-
     const [cookies, setCookie, removeCookie] = useCookies(["authToken"])
+    
+    const queryParameters = new URLSearchParams(window.location.search)
+    const projectID = queryParameters.get("projectID") || location.state.projectID;
+    const redirectURL = queryParameters.get("redirectURL") || location.state.redirectURL;
+    const scope = queryParameters.get("scope") || location.state.scope;
+    const authToken = queryParameters.get("token") || cookies.authToken;
+
+    
 
     useEffect(() => {
         setCookie("authToken", authToken, { path: "/" });
