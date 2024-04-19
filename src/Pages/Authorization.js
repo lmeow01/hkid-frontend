@@ -1,11 +1,22 @@
 import '../App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 const Authorization = () => {
     const location = useLocation();
-    const {projectID, redirectURL, scope, authToken} = location.state
+    const queryParameters = new URLSearchParams(window.location.search)
+    const projectID = queryParameters.get("projectID")
+    const redirectURL = queryParameters.get("redirectURL")
+    const scope = queryParameters.get("scope")
+    const authToken = queryParameters.get("token")
+
+    const [cookies, setCookie, removeCookie] = useCookies(["authToken"])
+
+    useEffect(() => {
+        setCookie("authToken", authToken, { path: "/" });
+    })
     return (
         <div className='flex flex-col items-center'>
             <div className='flex flex-col  bg-gray-100 rounded-lg shadow-md p-10 transition-transform w-1/3 mt-20 '>

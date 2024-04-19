@@ -8,12 +8,15 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [submitBtnText, setSubmitBtnText] = useState("Generate a Magic Link!");
     const navigate = useNavigate();
     const queryParameters = new URLSearchParams(window.location.search)
     const projectID = queryParameters.get("projectID")
     const redirectURL = queryParameters.get("redirectURL")
     const scope = queryParameters.get("scope")
     const [cookies, setCookie, removeCookie] = useCookies(["authToken"])
+
+
     if (!projectID || !redirectURL || !scope){
         alert("Missing one of these: projectId, redirectUrl, and scope")
     } 
@@ -31,7 +34,6 @@ const Login = () => {
     })
     
 
-    
     return (
         
         <div className="App flex flex-col items-center">
@@ -44,7 +46,7 @@ const Login = () => {
 
                 <form action="" class="flex flex-col" onSubmit={async (e) => {
                     e.preventDefault();
-                    const data = {email, password}
+                    const data = {email, projectID, redirectURL, scope}
                     const response = await fetch("https://hkid-f3672587ec5b.herokuapp.com/api/users/login", {
                         method: "POST", // *GET, POST, PUT, DELETE, etc.
                         mode: "cors", // no-cors, *cors, same-origin
@@ -57,21 +59,11 @@ const Login = () => {
                         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
                         body: JSON.stringify(data), // body data type must match "Content-Type" header
                     }).then((response) => {
-                        return response.headers.get("x-auth")
-                    }).then((data) => {
-                        const authToken = data
-                        setCookie("authToken", authToken);
-                        if (!authToken) {
-                            return alert("Login credentials are invalid")
-                        }
+                        if (response.status === 200) {
+                            setSubmitBtnText("Magic Link Sent to your Email!")
 
-                        navigate("/authorization", { state: {
-                            authToken,
-                            projectID,
-                            redirectURL,
-                            scope
-                        }})
-                    });
+                        }
+                    })
                 }}>
                     <label
                         for="email"
@@ -109,10 +101,12 @@ const Login = () => {
 
                     <div class="flex justify-center items-center">
                         <button
+                            id="submitBtn"
                             type="submit"
+                            disabled={submitBtnText === "Magic Link Sent to your Email!"}
                             class="bg-green-600 text-white py-3 px-6 rounded -md cursor-pointer transition-colors duration-300 hover:bg-green-500"
                         >
-                            Generate a Magic Link!
+                            {submitBtnText}
                         </button>
                     </div>
                 </form>
