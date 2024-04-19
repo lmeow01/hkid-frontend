@@ -9,15 +9,23 @@ const Authorization = () => {
     const [cookies, setCookie, removeCookie] = useCookies(["authToken"]);
 
     const queryParameters = new URLSearchParams(window.location.search)
-    const projectID = queryParameters.get("projectID") || location.state.projectID;
-    const redirectURL = queryParameters.get("redirectURL") || location.state.redirectURL;
-    const scope = queryParameters.get("scope") || location.state.scope;
-    const authToken = queryParameters.get("token") || location.state.token;;
+    const projectID = queryParameters.get("projectID") 
+    const redirectURL = queryParameters.get("redirectURL")
+    const scope = queryParameters.get("scope")
+    const authToken = queryParameters.get("token")
 
     
 
     useEffect(() => {
-        setCookie("authToken", authToken, { path: "/" });
+        if (!authToken) {
+            projectID = location.state.projectID;
+            redirectURL = location.state.redirectURL;
+            scope = location.state.scope;
+            authToken = location.state.authToken;
+        } else{
+            setCookie("authToken", authToken, { path: "/" });
+        }
+        
     })
     return (
         <div className='flex flex-col items-center'>
