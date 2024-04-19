@@ -22,9 +22,7 @@ const Authorization = () => {
             setRedirectURL(location.state.redirectURL);
             setScope(location.state.scope);
             setAuthToken(location.state.authToken);
-        } else{
-            setCookie("authToken", authToken, { path: "/" });
-        }
+        } 
         
     })
     return (
@@ -75,6 +73,7 @@ const Authorization = () => {
                 <div className='flex space-x-16 justify-between'>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
                       removeCookie("authToken", { path: "/" });
+                      window.location.href = "/";
                     }}>
                         Cancel
                     </button>
