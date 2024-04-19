@@ -32,14 +32,14 @@ const Authorization = () => {
             <div className='flex flex-col  bg-gray-100 rounded-lg shadow-md p-10 transition-transform w-1/3 mt-20 '>
                 <div className='flex flex-col items-center justify-center text-base' >
                     <h1 className='text-gray-500'>An external application</h1>
-                    <h1 className='font-bold text-xl'>{projectID.split(".")[0].toUpperCase()}</h1>
+                    <h1 className='font-bold text-xl'>{projectID && projectID.split(".")[0].toUpperCase()}</h1>
                     <h1 className='text-gray-500'>wants to access your HKID account</h1>
                 </div>
                 <br/>
                 <hr/>
                 <br/>
                 <div className='text-sm items-start space-y-2'>
-                    <h1 className=''>THIS WILL ALLOW THE DEVELOPERS OF {projectID.split(".")[0].toUpperCase()} TO:</h1>
+                    <h1 className=''>THIS WILL ALLOW THE DEVELOPERS OF {projectID && projectID.split(".")[0].toUpperCase()} TO:</h1>
                     <section className='flex space-x-2'> 
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" heights="20px" viewBox="3 3 16 16">
                         <g transform="matrix(1.99997 0 0 1.99997-10.994-2071.68)" fill="#da4453">
