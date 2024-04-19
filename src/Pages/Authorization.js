@@ -12,7 +12,7 @@ const Authorization = () => {
     const projectID = queryParameters.get("projectID") || location.state.projectID;
     const redirectURL = queryParameters.get("redirectURL") || location.state.redirectURL;
     const scope = queryParameters.get("scope") || location.state.scope;
-    const authToken = queryParameters.get("token") || cookies.authToken;
+    const authToken = queryParameters.get("token") || location.state.token;;
 
     
 
