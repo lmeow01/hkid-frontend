@@ -87,6 +87,7 @@ const Authorization = () => {
                             ).then((response) => {
                                 return response.json()
                             }).then((data) => {
+                                setCookie("authToken", authToken, { path: "/" });
                                 const redirectURLFromServer = data.redirectURL
                                 if (!redirectURLFromServer) {
                                     return alert("Project info of the client application provided is invalid")
