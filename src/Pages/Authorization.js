@@ -17,7 +17,7 @@ const Authorization = () => {
     
 
     useEffect(() => {
-        if (cookies.authToken && cookies.authToken.length != 0) {
+        if (cookies.authToken) {
             setCookie("authToken", authToken, { path: "/" });
         }     
     })
