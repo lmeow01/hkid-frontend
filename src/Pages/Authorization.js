@@ -17,7 +17,9 @@ const Authorization = () => {
     
 
     useEffect(() => {
-        setCookie("authToken", authToken, { path: "/" });
+        if (cookies.authToken && cookies.authToken.length != 0) {
+            setCookie("authToken", authToken, { path: "/" });
+        }     
     })
     return (
         <div className='flex flex-col items-center'>
