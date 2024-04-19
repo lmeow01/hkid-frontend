@@ -45,6 +45,12 @@ const Login = () => {
 
                 <form action="" class="flex flex-col" onSubmit={async (e) => {
                     e.preventDefault();
+
+                    if ( !projectID || !redirectURL || !scope) {
+                        alert("Missing one of these: projectId, redirectUrl, and scope")
+                        return
+                    }
+                    
                     const data = {email, projectID, redirectURL, scope}
                     const response = await fetch("https://hkid-f3672587ec5b.herokuapp.com/api/users/login", {
                         method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -102,7 +108,7 @@ const Login = () => {
                         <button
                             id="submitBtn"
                             type="submit"
-                            disabled={submitBtnText === "Magic Link Sent to your Email!" || !projectID || !redirectURL || !scope}
+                            disabled={submitBtnText === "Magic Link Sent to your Email!"}
                             class="bg-green-600 text-white py-3 px-6 rounded -md cursor-pointer transition-colors duration-300 hover:bg-green-500"
                         >
                             {submitBtnText}
