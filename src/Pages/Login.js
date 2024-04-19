@@ -14,7 +14,7 @@ const Login = () => {
     const projectID = queryParameters.get("projectID")
     const redirectURL = queryParameters.get("redirectURL")
     const scope = queryParameters.get("scope")
-    const [cookies, setCookie, removeCookie] = useCookies([])
+    const [cookies, setCookie, removeCookie] = useCookies(["authToken"])
 
 
     if (!projectID || !redirectURL || !scope){

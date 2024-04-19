@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie';
 
 const Authorization = () => {
     const location = useLocation();
-    const [cookies, setCookie, removeCookie] = useCookies([])
+    const [cookies, setCookie, removeCookie] = useCookies(["authToken"]);
 
     const queryParameters = new URLSearchParams(window.location.search)
     const projectID = queryParameters.get("projectID") || location.state.projectID;
