@@ -18,7 +18,7 @@ const Login = () => {
         alert("Missing one of these: projectId, redirectUrl, and scope")
     } 
 
-    if (cookies.get("authToken") != null) {
+    if (cookies.get("authToken") && cookies.get("authToken").length != 0) {
         const authToken = cookies.get("authToken")
         navigate("/authorization", { state: {
             authToken,
@@ -56,7 +56,7 @@ const Login = () => {
                         return response.headers.get("x-auth")
                     }).then((data) => {
                         const authToken = data
-                        
+                        cookies.setCookie("authToken", authToken);
                         if (!authToken) {
                             return alert("Login credentials are invalid")
                         }
@@ -86,7 +86,7 @@ const Login = () => {
                         required
                     />
 
-                    {/* <label
+                    <label
                         for="password"
                         class="block mb-2 text-left text-gray-700 font-bold"
                     >Password:</label>
@@ -101,7 +101,7 @@ const Login = () => {
                         placeholder="Enter your Password"
                         class="block w-full mb-6 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-400"
                         required
-                    /> */}
+                    />
 
                     <div class="flex justify-center items-center">
                         <button
