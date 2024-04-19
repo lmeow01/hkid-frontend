@@ -18,8 +18,8 @@ const Login = () => {
         alert("Missing one of these: projectId, redirectUrl, and scope")
     } 
 
-    if (cookies.get("authToken") && cookies.get("authToken").length != 0) {
-        const authToken = cookies.get("authToken")
+    if (cookies.authToken && cookies.authToken.length != 0) {
+        const authToken = cookies.authToken
         navigate("/authorization", { state: {
             authToken,
             projectID,
@@ -30,6 +30,7 @@ const Login = () => {
 
     
     return (
+        
         <div className="App flex flex-col items-center">
         <div
                 class="main bg-white rounded-lg shadow-md p-10 transition-transform w-96 text-center mt-20"
