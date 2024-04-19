@@ -1,5 +1,5 @@
 import '../App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from 'react-cookie';
@@ -18,15 +18,18 @@ const Login = () => {
         alert("Missing one of these: projectId, redirectUrl, and scope")
     } 
 
-    if (cookies.authToken && cookies.authToken.length != 0) {
-        const authToken = cookies.authToken
-        navigate("/authorization", { state: {
-            authToken,
-            projectID,
-            redirectURL,
-            scope
-        }})
-    }
+    useEffect(() => {
+        if (cookies.authToken && cookies.authToken.length != 0) {
+            const authToken = cookies.authToken
+            navigate("/authorization", { state: {
+                authToken,
+                projectID,
+                redirectURL,
+                scope
+            }})
+        }
+    })
+    
 
     
     return (
