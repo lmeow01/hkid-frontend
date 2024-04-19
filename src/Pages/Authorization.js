@@ -6,8 +6,8 @@ import { useCookies } from 'react-cookie';
 
 const Authorization = () => {
     const location = useLocation();
-    const [cookies, setCookie, removeCookie] = useCookies(["authToken"])
-    
+    const [cookies, setCookie, removeCookie] = useCookies([])
+
     const queryParameters = new URLSearchParams(window.location.search)
     const projectID = queryParameters.get("projectID") || location.state.projectID;
     const redirectURL = queryParameters.get("redirectURL") || location.state.redirectURL;
