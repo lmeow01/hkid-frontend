@@ -18,6 +18,7 @@ const Authorization = () => {
 
     useEffect(() => {
         if (cookies.authToken) {
+            removeCookie("authToken");
             setCookie("authToken", authToken, { path: "/" });
         }     
     })
