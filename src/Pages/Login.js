@@ -2,6 +2,7 @@ import '../App.css';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
 
@@ -12,10 +13,21 @@ const Login = () => {
     const projectID = queryParameters.get("projectID")
     const redirectURL = queryParameters.get("redirectURL")
     const scope = queryParameters.get("scope")
-  
+    const [cookies, setCookie, removeCookie] = useCookies(["authToken"])
     if (!projectID || !redirectURL || !scope){
-
+        alert("Missing one of these: projectId, redirectUrl, and scope")
     } 
+
+    if (cookies.get("authToken") != null) {
+        const authToken = cookies.get("authToken")
+        navigate("/authorization", { state: {
+            authToken,
+            projectID,
+            redirectURL,
+            scope
+        }})
+    }
+
     
     return (
         <div className="App flex flex-col items-center">
@@ -44,10 +56,11 @@ const Login = () => {
                         return response.headers.get("x-auth")
                     }).then((data) => {
                         const authToken = data
-
+                        
                         if (!authToken) {
                             return alert("Login credentials are invalid")
                         }
+
                         navigate("/authorization", { state: {
                             authToken,
                             projectID,
@@ -73,7 +86,7 @@ const Login = () => {
                         required
                     />
 
-                    <label
+                    {/* <label
                         for="password"
                         class="block mb-2 text-left text-gray-700 font-bold"
                     >Password:</label>
@@ -88,19 +101,19 @@ const Login = () => {
                         placeholder="Enter your Password"
                         class="block w-full mb-6 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-400"
                         required
-                    />
+                    /> */}
 
                     <div class="flex justify-center items-center">
                         <button
                             type="submit"
                             class="bg-green-600 text-white py-3 px-6 rounded -md cursor-pointer transition-colors duration-300 hover:bg-green-500"
                         >
-                            Submit
+                            Generate a Magic Link!
                         </button>
                     </div>
                 </form>
                 <p class="mt-4">Not registered?
-                    <a href="#" class="text-blue-500 hover:underline">Create an
+                    <a href="#" class="text-blue-500 hover:underline"> Create an
                         account</a>
                 </p>
             </div>
