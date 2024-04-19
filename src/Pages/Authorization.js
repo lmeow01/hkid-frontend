@@ -9,19 +9,19 @@ const Authorization = () => {
     const [cookies, setCookie, removeCookie] = useCookies(["authToken"]);
 
     const queryParameters = new URLSearchParams(window.location.search)
-    const projectID = queryParameters.get("projectID") 
-    const redirectURL = queryParameters.get("redirectURL")
-    const scope = queryParameters.get("scope")
-    const authToken = queryParameters.get("token")
+    const [projectID, setProjectID] = useState(queryParameters.get("projectID"));
+    const [redirectURL, setRedirectURL] = useState(queryParameters.get("redirectURL"));
+    const [scope, setScope] = useState(queryParameters.get("scope"));
+    const [authToken, setAuthToken] = useState(queryParameters.get("token"))
 
     
 
     useEffect(() => {
-        if (!authToken) {
-            projectID = location.state.projectID;
-            redirectURL = location.state.redirectURL;
-            scope = location.state.scope;
-            authToken = location.state.authToken;
+        if (!authToken || authToken.length === 0) {
+            setProjectID(location.state.projectID);
+            setRedirectURL(location.state.redirectURL);
+            setScope(location.state.scope);
+            setAuthToken(location.state.authToken);
         } else{
             setCookie("authToken", authToken, { path: "/" });
         }
