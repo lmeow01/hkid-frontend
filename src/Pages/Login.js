@@ -14,6 +14,8 @@ const Login = () => {
     const projectID = queryParameters.get("projectID")
     const redirectURL = queryParameters.get("redirectURL")
     const scope = queryParameters.get("scope")
+    const code_challenge = queryParameters.get("code_challenge")
+    const code_challenge_method = queryParameters.get("code_challenge_method")
     const [cookies, setCookie, removeCookie] = useCookies(["authToken"])
 
 
@@ -28,7 +30,9 @@ const Login = () => {
                 authToken,
                 projectID,
                 redirectURL,
-                scope
+                scope,
+                code_challenge,
+                code_challenge_method
             }})
         }
     })
@@ -50,8 +54,8 @@ const Login = () => {
                         alert("Missing one of these: projectId, redirectUrl, and scope")
                         return
                     }
-                    
-                    const data = {email, projectID, redirectURL, scope}
+
+                    const data = {email, projectID, redirectURL, scope, code_challenge, code_challenge_method}
                     const response = await fetch("https://hkid-f3672587ec5b.herokuapp.com/api/users/login", {
                         method: "POST", // *GET, POST, PUT, DELETE, etc.
                         mode: "cors", // no-cors, *cors, same-origin

@@ -83,13 +83,7 @@ const Authorization = () => {
                             const codeVerifier = base64_encode("1");
                             const codeChallenge = await getSHA256Hash(codeVerifier)
 
-                            // const response = await fetch(`https://hkid-f3672587ec5b.herokuapp.com/api/oauth/code?projectID=${projectID}&redirectURL=${redirectURL}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`, {
-                            //     method: 'GET',
-                            //     headers: {
-                            //         'x-auth': authToken
-                            //     }
-                            // }
-                            const response = await fetch(`localhost:3000/api/oauth/code?projectID=${projectID}&redirectURL=${redirectURL}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`, {
+                            const response = await fetch(`https://hkid-f3672587ec5b.herokuapp.com/api/oauth/code?projectID=${projectID}&redirectURL=${redirectURL}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`, {
                                 method: 'GET',
                                 headers: {
                                     'x-auth': authToken
