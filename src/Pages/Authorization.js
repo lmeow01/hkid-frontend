@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useCookies } from 'react-cookie';
+import { randomstring } from 'randomstring'
+import {encode as base64_encode} from 'base-64'
+import { getSHA256Hash } from "boring-webcrypto-sha256";
 
 const Authorization = () => {
     const location = useLocation();
@@ -13,8 +16,6 @@ const Authorization = () => {
     const [redirectURL, setRedirectURL] = useState(queryParameters.get("redirectURL"));
     const [scope, setScope] = useState(queryParameters.get("scope"));
     const [authToken, setAuthToken] = useState(queryParameters.get("token"))
-
-    
 
     useEffect(() => {
         if (!authToken || authToken.length === 0) {
@@ -78,7 +79,17 @@ const Authorization = () => {
                         Cancel
                     </button>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={async () => {
-                            const response = await fetch(`https://hkid-f3672587ec5b.herokuapp.com/api/oauth/code?projectID=${projectID}&redirectURL=${redirectURL}&scope=${scope}`, {
+                        // const codeVerifier = randomstring();
+                            const codeVerifier = base64_encode("1");
+                            const codeChallenge = await getSHA256Hash(codeVerifier)
+
+                            // const response = await fetch(`https://hkid-f3672587ec5b.herokuapp.com/api/oauth/code?projectID=${projectID}&redirectURL=${redirectURL}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`, {
+                            //     method: 'GET',
+                            //     headers: {
+                            //         'x-auth': authToken
+                            //     }
+                            // }
+                            const response = await fetch(`localhost:3000/api/oauth/code?projectID=${projectID}&redirectURL=${redirectURL}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=S256`, {
                                 method: 'GET',
                                 headers: {
                                     'x-auth': authToken
