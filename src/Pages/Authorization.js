@@ -79,7 +79,7 @@ const Authorization = () => {
                 <div className='flex space-x-16 justify-between'>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => {
                       removeCookie("authToken", { path: "/" });
-                      window.location.href = `/?projectID=${projectID}&redirectURL=${redirectURL}&scope=${scope}`;
+                      window.location.href = `/?projectID=${projectID}&redirectURL=${redirectURL}&scope=${scope}&code_challenge=${codeChallenge}&code_challenge_method=${codeChallengeMethod}`;
                     }}>
                         Cancel
                     </button>
