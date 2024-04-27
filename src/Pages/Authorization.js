@@ -101,7 +101,7 @@ const Authorization = () => {
                                 }
                                 window.location.href = redirectURLFromServer
                             }).catch((err) => {
-                                alert(err)
+                                alert(err.message)
                             });
                         }}>
                         Authorize
