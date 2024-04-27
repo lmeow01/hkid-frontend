@@ -7,7 +7,6 @@ import { useCookies } from 'react-cookie';
 const Login = () => {
 
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [submitBtnText, setSubmitBtnText] = useState("Generate a Magic Link!");
     const navigate = useNavigate();
     const queryParameters = new URLSearchParams(window.location.search)
@@ -113,7 +112,7 @@ const Login = () => {
                             id="submitBtn"
                             type="submit"
                             disabled={submitBtnText === "Magic Link Sent to your Email!"}
-                            class="bg-green-600 text-white py-3 px-6 rounded -md cursor-pointer transition-colors duration-300 hover:bg-green-500"
+                            class="bg-green-600 text-white py-3 px-6 rounded-md cursor-pointer transition-colors duration-300 hover:bg-green-500"
                         >
                             {submitBtnText}
                         </button>
